@@ -1,2 +1,2 @@
 # School-Dashboard
-A School Projekt from the Company
+A School Projekt from the Company ASC Technologies. 
