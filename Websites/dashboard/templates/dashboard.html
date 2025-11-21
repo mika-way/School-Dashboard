@@ -46,12 +46,15 @@
           <div class="d-flex align-items-center column-gap-3">
             <div class="text-end lh-sm">
               <div class="fw-semibold text-secondary">
-                {% if role == "student" %} Schüler {% elif role == "teacher" %}
-                Lehrer {% else %} Gast {% endif %}
+                {% if username != None %}
+                {{ username }}
+                {% else %} 
+                Gast 
+                {% endif %}
               </div>
 
               <div class="small">
-                {% if role == "student" or role == "teacher" %}
+                {% if username != None %}
                 <a href="#" class="text-decoration-none link-primary"
                   >Abmelden</a
                 >
@@ -65,7 +68,7 @@
               </div>
             </div>
 
-            {% if role == "student" or role == "teacher" %}
+            {% if username != None %}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"

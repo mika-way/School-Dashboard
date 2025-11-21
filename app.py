@@ -5,9 +5,11 @@ Die app.py dient als Einstiegspunkt unserer Anwendung, von wo aus die Website ge
 
 """
 
-#Import Flask (Die Hauptfunktion)
-from flask import Flask, redirect, url_for
+#Import Flask (Die Hauptfunktion) und andere notwendige Module
+from flask import Flask, redirect, url_for, session
 from flask_wtf import CSRFProtect
+from flask_bcrypt import Bcrypt
+from datetime import timedelta
 
 #Import der Bluprints
 from Websites.dashboard import dashboard_blueprint
@@ -16,21 +18,25 @@ from Websites.register_student import register_student_blueprint
 from Websites.login import login_blueprint
 
 #import der Konfigurationsvariablen
-from configs.config import isKey_loaded
-from configs.config import secret_key
+from configs.config import isConfig_loaded, secret_key, debug_mode
 
 #Import der Datenbankklasse und gibt db eine Verbindung zur Datenbank
 from data.database import Database
 
 #Initialisierung der Datenbankverbindung
-db = Database("user")
+db = Database("student")
 
 #Hauptfunktion
-def create_app(debug = True):
+def create_app(debug = debug_mode):
+    #Erstellen der Flask App und Konfigurationen
     app = Flask(__name__)
     app.debug = debug
     app.config['SECRET_KEY'] = secret_key
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
+    #Initialisierung von Bcrypt für die Passwort-Hashing
+    bcrypt = Bcrypt(app)
+    #Schutz vor CSRF-Angriffen
     csrf = CSRFProtect(app)
 
     #Registrierung der Blueprints
@@ -54,7 +60,7 @@ def create_app(debug = True):
 #Ausführen des Servers
 if __name__ == "__main__":
     #Überprüft ob die kritischen Umgebungsvariablen geladen wurden
-    isKey_loaded()
+    isConfig_loaded()
 
     #Überprüft die Datenbankverbindung
     db.isconnected()

@@ -9,18 +9,29 @@ Prozess:
 Zweck: Gewährleistung der Trennung von Code und sensiblen Konfigurationsdaten.
 """
 
-
+#Import der notwendigen Module
 import os
+import json
 from dotenv import load_dotenv
 
 #Stellt sicher, dass die Umgebungsvariablen aus der .env-Datei geladen werden
 load_dotenv() 
 
-secret_key = os.getenv("SECRET_KEY")
 #Enthält den zentralen kryptografischen Schlüssel der Anwendung, geladen aus der Umgebungsvariable 'SECRET_KEY'.
+secret_key = os.getenv("SECRET_KEY")
 
-mongo_uri = os.getenv("MONGO_URI")
 #Enthält die Verbindungszeichenkette für die MongoDB-Datenbank, geladen aus der Umgebungsvariable 'MONGO_URI'.
+mongo_uri = os.getenv("MONGO_URI")
+
+#Lädt die Debug-Einstellung aus der settings.json Datei
+debug_mode = json.loads(open("configs/settings.json").read())["server"]["debug"]
+
+def isConfig_loaded():
+    """Überprüft, ob die kritischen Konfigurationsvariablen geladen wurden."""
+    isKey_loaded()
+    isJsonloaded()
+
+
 
 #Eine Warnung falls ein Umgebungsschlüssel nicht geladen werden konnte.
 def isKey_loaded():
@@ -28,3 +39,11 @@ def isKey_loaded():
         print("WARNUNG: Mindestens ein kritischer Umgebungsschlüssel (SECRET_KEY oder MONGO_URI) konnte nicht geladen werden!")
     else:
         print("Alle kritischen Umgebungsschlüssel wurden erfolgreich geladen.")
+
+def isJsonloaded():
+    #Eine Warnung falls die settings.json Datei nicht geladen werden konnte.
+    try:
+        json.loads(open("configs/settings.json").read())
+        print("Die settings.json Datei wurde erfolgreich geladen.")
+    except:
+        print("WARNUNG: Die settings.json Datei konnte nicht geladen werden oder ist fehlerhaft!")
