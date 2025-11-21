@@ -12,6 +12,9 @@ from flask import Flask, redirect, url_for
 from Websites.dashboard import dashboard_blueprint
 from Websites.page_not_found import page_not_found_blueprint
 
+#import der Konfigurationsvariablen
+from configs.config import isKey_loaded
+
 #Hauptfunktion
 def create_app(debug = True):
     app = Flask(__name__)
@@ -35,5 +38,9 @@ def create_app(debug = True):
 
 #Ausführen des Servers
 if __name__ == "__main__":
+    #Überprüft ob die kritischen Umgebungsvariablen geladen wurden
+    isKey_loaded()
+
+    #Erstellen und Ausführen der App
     app = create_app()
     app.run()

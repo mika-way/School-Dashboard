@@ -23,5 +23,8 @@ mongo_uri = os.getenv("MONGO_URI")
 #Enthält die Verbindungszeichenkette für die MongoDB-Datenbank, geladen aus der Umgebungsvariable 'MONGO_URI'.
 
 #Eine Warnung falls ein Umgebungsschlüssel nicht geladen werden konnte.
-if not secret_key or not mongo_uri:
-    print("WARNUNG: Mindestens ein kritischer Umgebungsschlüssel (SECRET_KEY oder MONGO_URI) konnte nicht geladen werden!")
+def isKey_loaded():
+    if not secret_key or not mongo_uri:
+        print("WARNUNG: Mindestens ein kritischer Umgebungsschlüssel (SECRET_KEY oder MONGO_URI) konnte nicht geladen werden!")
+    else:
+        print("Alle kritischen Umgebungsschlüssel wurden erfolgreich geladen.")
