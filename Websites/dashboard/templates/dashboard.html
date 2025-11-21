@@ -25,40 +25,78 @@
     />
     <!-- ~~~ -->
 
-    {% if username %}
+    <!-- Title -->
+    {% if username != None %}
     <title>Schul-Dashbaord - {{ username }}</title>
     {% else %}
     <title>Schul-Dashbaord</title>
     {% endif %}
+    <!-- ~~~ -->
+
   </head>
   <body>
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand bg-body-tertiary shadow-sm">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#" style="font-size: 200%"
-          >Schul-Dashboard</a
-        >
+        <a class="navbar-brand fs-3 fw-bold" href="#">Schul-Dashboard</a>
 
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <p class="text-center mx-2 mt-2 mb-0" style="font-size: 90%">
-            Gast/Schüler/Lehrer<br />
-            <a href="#">login</a> | <a href="#">registrieren</a>
-          </p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            fill="currentColor"
-            class="bi bi-person-circle mt-2"
-            viewBox="0 0 16 16"
-          >
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-            <path
-              fill-rule="evenodd"
-              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-            />
-          </svg>
+
+          <div class="d-flex align-items-center column-gap-3">
+            <div class="text-end lh-sm">
+              <div class="fw-semibold text-secondary">
+                {% if role == "student" %} Schüler {% elif role == "teacher" %}
+                Lehrer {% else %} Gast {% endif %}
+              </div>
+
+              <div class="small">
+                {% if role == "student" or role == "teacher" %}
+                <a href="#" class="text-decoration-none link-primary"
+                  >Abmelden</a
+                >
+                {% else %}
+                <a href="#" class="text-decoration-none link-primary">Login</a>
+                <span class="text-body-tertiary">|</span>
+                <a href="#" class="text-decoration-none link-primary"
+                  >Registrieren</a
+                >
+                {% endif %}
+              </div>
+            </div>
+
+            {% if role == "student" or role == "teacher" %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="currentColor"
+              class="bi bi-person-circle text-black fs-2"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+              />
+            </svg>
+            {% else %}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="currentColor"
+              class="bi bi-person-circle text-secondary fs-2"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+              />
+            </svg>
+            {% endif %}
+          </div>
         </div>
       </div>
     </nav>
