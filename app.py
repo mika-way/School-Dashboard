@@ -7,14 +7,17 @@ Die app.py dient als Einstiegspunkt unserer Anwendung, von wo aus die Website ge
 
 #Import Flask (Die Hauptfunktion)
 from flask import Flask, redirect, url_for
+from flask_wtf import CSRFProtect
 
 #Import der Bluprints
 from Websites.dashboard import dashboard_blueprint
 from Websites.page_not_found import page_not_found_blueprint
 from Websites.register_student import register_student_blueprint
+from Websites.login import login_blueprint
 
 #import der Konfigurationsvariablen
 from configs.config import isKey_loaded
+from configs.config import secret_key
 
 #Import der Datenbankklasse und gibt db eine Verbindung zur Datenbank
 from data.database import Database
@@ -26,11 +29,15 @@ db = Database("user")
 def create_app(debug = True):
     app = Flask(__name__)
     app.debug = debug
+    app.config['SECRET_KEY'] = secret_key
+
+    csrf = CSRFProtect(app)
 
     #Registrierung der Blueprints
     app.register_blueprint(dashboard_blueprint, url_prefix="/dashboard")
     app.register_blueprint(page_not_found_blueprint, url_prefix="/page_not_found")
     app.register_blueprint(register_student_blueprint, url_prefix="/register_student")
+    app.register_blueprint(login_blueprint, url_prefix="/login")
 
     #Wenn keine Website gefunden wurde, ruft der Server diese Website auf.
     @app.errorhandler(404)

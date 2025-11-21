@@ -21,18 +21,18 @@
     <!-- CSS Lokal -->
     <link
       rel="stylesheet"
-      href="{{ url_for('register_student.static', filename='styles.css') }}"
+      href="{{ url_for('login.static', filename='styles.css') }}"
     />
     <!-- ~~~ -->
 
     <!-- Title -->
-    <title>Registrieren - Schüler</title>
+    <title>Login</title>
     <!-- ~~~ -->
 
   </head>
   <body>
     <!-- Header -->
-     <h1>Registrieren - Schüler</h1>
+     <h1>Login</h1>
 
     <!-- ~~~ -->
 
@@ -40,16 +40,10 @@
     <form method="POST" action="">
       {{ form.hidden_tag() }}
       <div>
-        {{ form.username() }}
-      </div>
-      <div>
         {{ form.email() }}
       </div>
       <div>
         {{ form.password() }}
-      </div>
-      <div>
-        {{ form.confirm_password() }}
       </div>
       <div>
         {{ form.submit() }}
@@ -58,7 +52,7 @@
 
     <!-- Javascript einbinden -->
 
-    <script src="{{ url_for('register_student.static', filename='script.js') }}"></script>
+    <script src="{{ url_for('login.static', filename='script.js') }}"></script>
 
     <!-- ~~~ -->
   </body>
