@@ -1,13 +1,14 @@
 #Import Flask
-from flask import render_template, session, redirect, url_for, jsonify, request
+from flask import render_template
+from flask_login import current_user
 from . import dashboard_blueprint
 
 #Erstellt die Verbindung zur HTML Datei her
 @dashboard_blueprint.route('/')
 def index():
     # Überprüft, ob der Benutzer eingeloggt ist und holt den Benutzernamen
-    if session.get('user_uuid'):
-        username = session['username']
+    if current_user.is_authenticated:
+        username = current_user.username
     else:
         username = None # Standardmäßig kein Benutzername
 

@@ -5,14 +5,16 @@ Funktion: Dieses Modul definiert die Klasse `LoginForm`, die zur Erfassung und V
 Bestandteile:
 1.  `email` (`StringField`): Feld zur Eingabe der E-Mail-Adresse, validiert auf Korrektheit.
 2.  `password` (`PasswordField`): Feld zur Eingabe des Passworts, validiert auf Nicht-Leerheit.
-3.  `submit` (`SubmitField`): Schaltfläche zum Absenden (Anmelden) des Formulars.
+3.  `remember_me` (`BooleanField`): Option, um den Benutzer angemeldet zu lassen.
+4.  `submit` (`SubmitField`): Schaltfläche zum Absenden (Anmelden) des Formulars.
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "Email"})
     password = PasswordField('Passwort', validators=[DataRequired()], render_kw={"placeholder": "Passwort"})
+    remember_me = BooleanField('Angemeldet bleiben')
     submit = SubmitField('Anmelden')

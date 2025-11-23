@@ -7,6 +7,7 @@ Die app.py dient als Einstiegspunkt unserer Anwendung, von wo aus die Website ge
 
 #Import Flask (Die Hauptfunktion) und andere notwendige Module
 from flask import Flask, redirect, url_for, session
+from flask_login import LoginManager, login_required, logout_user
 from flask_wtf import CSRFProtect
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
@@ -23,8 +24,22 @@ from configs.config import isConfig_loaded, secret_key, debug_mode
 #Import der Datenbankklasse und gibt db eine Verbindung zur Datenbank
 from data.database import Database
 
+#Import der User Klasse
+from utils.UserMixin import User
+
 #Initialisierung der Datenbankverbindung
 db = Database("student")
+
+#Initialisierung des Login Managers
+login_manager = LoginManager()
+
+#Lädt den Benutzer basierend auf der Benutzer-ID
+@login_manager.user_loader
+def load_user(user_id):
+    find_student = db.find_student_by_uuid(user_id)
+    if find_student:
+        return User(find_student)
+    return None
 
 #Hauptfunktion
 def create_app(debug = debug_mode):
@@ -33,6 +48,10 @@ def create_app(debug = debug_mode):
     app.debug = debug
     app.config['SECRET_KEY'] = secret_key
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+
+    #einitialisierung des Login Managers
+    login_manager.init_app(app)
+    login_manager.login_view = "login.index"
 
     #Initialisierung von Bcrypt für die Passwort-Hashing
     bcrypt = Bcrypt(app)
@@ -52,8 +71,10 @@ def create_app(debug = debug_mode):
     
     #Abmelden Route - Löscht die Session und leitet auf die Mainpage weiter
     @app.route("/logout/")
+    @login_required
     def logout():
-        session.clear()
+        session.clear() #cookies/session löschen
+        logout_user() #Flask-Login Abmeldung
         return redirect(url_for("dashboard.index"))
     
     #Läd unser Dashboard (Mainpage)

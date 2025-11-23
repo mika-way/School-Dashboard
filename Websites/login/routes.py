@@ -13,8 +13,10 @@ Es gibt nur diese Sessions:
 
 #Import Flask
 from flask import render_template, request, flash, redirect, url_for, session
+from flask_login import login_user, current_user
 from . import login_blueprint
 from flask_bcrypt import Bcrypt
+from utils.UserMixin import User
 
 #Importiere das Formular
 from forms.Login_Form import LoginForm
@@ -28,6 +30,9 @@ db = Database("student")
 #Erstellt die Verbindung zur HTML Datei her
 @login_blueprint.route('/', methods=['GET', 'POST'])
 def index():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard.index'))
+    
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         find_student = db.find_student_by_email(form.email.data)
@@ -41,6 +46,10 @@ def index():
 
         # Überprüft das Passwort
         if find_student and bcrypt.check_password_hash(students_password, form.password.data):
+
+            user = User(find_student)
+
+            login_user(user, remember=form.remember_me.data)
 
             session['logged_in'] = True
             session['user_uuid'] = find_student['uuid']
