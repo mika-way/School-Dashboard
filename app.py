@@ -22,13 +22,13 @@ from Websites.login import login_blueprint
 from configs.config import isConfig_loaded, secret_key, debug_mode
 
 #Import der Datenbankklasse und gibt db eine Verbindung zur Datenbank
-from data.database import Database
+from data.database import DatabaseStudent
 
 #Import der User Klasse
 from utils.UserMixin import User
 
 #Initialisierung der Datenbankverbindung
-db = Database("student")
+db = DatabaseStudent("student")
 
 #Initialisierung des Login Managers
 login_manager = LoginManager()

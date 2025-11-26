@@ -15,7 +15,7 @@ from configs.config import mongo_uri
 from utils.get_datetime import get_current_datetime
 
 
-class Database:
+class DatabaseStudent:
     def __init__(self, collection_name):
         # Initialisiert die Datenbankverbindung
         self.uri = mongo_uri
@@ -98,12 +98,14 @@ class Database:
         last_name,
         school_name,
         # Optionale Felder
+        is_verify=False,
         avatar=None,
         grade_level=None,
         section=None,
         class_teacher_id=None,
         created_at=get_current_datetime(),
         last_login=None,
+        logins=0
     ):
         student_data = {
             "uuid": uuid,
@@ -112,20 +114,22 @@ class Database:
             "password": password,
             "role": "student",
             "status": "inactive",
+            "is_verify": is_verify,
+            "schoolName": school_name,
             "profile": {
                 "firstName": first_name,
                 "lastName": last_name,
-                "avatarUrl": avatar,
+                "avatar": avatar,
             },
             "classData": {
                 "gradeLevel": grade_level,
                 "section": section,
-                "schoolName": school_name,
                 "classTeacherId": class_teacher_id,
             },
             "metadata": {
                 "createdAt": created_at,
                 "lastLogin": last_login,
+                "logins": logins
             },
         }
         return student_data
@@ -161,3 +165,56 @@ class Database:
         else:
             print("Student nicht gefunden.")
             return None
+
+class DatabaseTeacher(DatabaseStudent):
+    def __init__(self, collection_name):
+        super().__init__(collection_name)
+        
+    def teacher_formular(
+        uuid,
+        username,
+        email,
+        password,
+        first_name,
+        last_name,
+        school_name,
+        
+        #Optionale Felder
+        is_verify=False,
+        avatar=None,
+        title=None,
+        subject=[],
+        assignedClasses=[],
+        mentoredClass=None,
+        created_at=get_current_datetime(),
+        last_login=None,
+        logins=0
+        
+    ):
+        
+        teacher_data = {
+            "uuid": uuid,
+            "username": username,
+            "email": email,
+            "password": password,
+            "role": "teacher",
+            "status": "inactive",
+            "is_verify": is_verify,
+            "schoolName": school_name,
+            "profile": {
+                "firstName": first_name,
+                "lastName": last_name,
+                "avatar": avatar,
+                "title": title
+            },
+            "teaching_data": {
+                "subjects": subject,
+                "assignedClasses": assignedClasses,
+                "mentoredClass": mentoredClass, 
+            },
+            "metadata": {
+                "createdAt": created_at,
+                "lastLogin": last_login,
+                "logins": logins
+            },
+        }

@@ -22,17 +22,16 @@ from utils.UserMixin import User
 from forms.Login_Form import LoginForm
 
 #Importiere die Datenbankklasse
-from data.database import Database
+from data.database import DatabaseStudent
 
 bcrypt = Bcrypt()
-db = Database("student")
+db = DatabaseStudent("student")
 
 #Erstellt die Verbindung zur HTML Datei her
 @login_blueprint.route('/', methods=['GET', 'POST'])
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard.index'))
-    
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
         find_student = db.find_student_by_email(form.email.data)

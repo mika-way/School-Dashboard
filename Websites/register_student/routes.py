@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 from . import register_student_blueprint
 
 #Importiere die Datenbankklasse
-from data.database import Database
+from data.database import DatabaseStudent
 
 #Importiere Hilfsfunktionen
 from utils.uuid_generator import generate_uuid
@@ -14,7 +14,7 @@ from utils.uuid_generator import generate_uuid
 from forms.Register_Form import RegisterForm
 
 bcrypt = Bcrypt()
-db = Database("student")
+db = DatabaseStudent("student")
 
 #Erstellt die Verbindung zur HTML Datei her
 @register_student_blueprint.route('/', methods=['GET', 'POST'])
