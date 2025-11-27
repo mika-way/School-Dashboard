@@ -38,3 +38,13 @@
 #abmelden {
     cursor: pointer;
 }
+
+.neon-akzent {
+    /* Purpur-Akzentfarbe */
+    color: #7F00FF; 
+    
+    /* Neon-Glow-Effekt */
+    text-shadow: 
+        0 0 7px rgba(127, 0, 255, 0.7), 
+        0 0 12px rgba(127, 0, 255, 0.4);
+}

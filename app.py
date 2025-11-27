@@ -8,6 +8,7 @@ Die app.py dient als Einstiegspunkt unserer Anwendung, von wo aus die Website ge
 #Import Flask (Die Hauptfunktion) und andere notwendige Module
 from flask import Flask, redirect, url_for, session
 from flask_login import LoginManager, login_required, logout_user
+from flask_mail import Mail
 from flask_wtf import CSRFProtect
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
@@ -19,7 +20,7 @@ from Websites.register_student import register_student_blueprint
 from Websites.login import login_blueprint
 
 #import der Konfigurationsvariablen
-from configs.config import isConfig_loaded, secret_key, debug_mode
+from configs.config import isConfig_loaded, secret_key, debug_mode, email_password
 
 #Import der Datenbankklasse und gibt db eine Verbindung zur Datenbank
 from data.database import DatabaseStudent
@@ -32,6 +33,13 @@ db = DatabaseStudent("student")
 
 #Initialisierung des Login Managers
 login_manager = LoginManager()
+
+#Initialisierung von Bcrypt für die Passwort-Hashing
+bcrypt = Bcrypt()
+#Initialisierung von CSRF Schutz
+csrf = CSRFProtect()
+#Initialisierung von Mail
+mail = Mail()
 
 #Lädt den Benutzer basierend auf der Benutzer-ID
 @login_manager.user_loader
@@ -48,16 +56,20 @@ def create_app(debug = debug_mode):
     app.debug = debug
     app.config['SECRET_KEY'] = secret_key
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = 'schul.dashboard@gmail.com'
+    app.config['MAIL_PASSWORD'] = email_password
+    
+    #Initialisierung der Erweiterungen
+    bcrypt.init_app(app)
+    csrf.init_app(app)
+    mail.init_app(app)
 
     #einitialisierung des Login Managers
     login_manager.init_app(app)
     login_manager.login_view = "login.index"
-
-    #Initialisierung von Bcrypt für die Passwort-Hashing
-    bcrypt = Bcrypt(app)
-    #Schutz vor CSRF-Angriffen
-    csrf = CSRFProtect(app)
-
     #Registrierung der Blueprints
     app.register_blueprint(dashboard_blueprint, url_prefix="/dashboard")
     app.register_blueprint(page_not_found_blueprint, url_prefix="/page_not_found")

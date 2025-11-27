@@ -26,6 +26,8 @@ mongo_uri = os.getenv("MONGO_URI")
 #Enthält den API-Schlüssel für den Wetterdienst, geladen aus der Umgebungsvariable 'WEATHER_API_KEY'.
 weather_api_key = os.getenv("WEATHER_API_KEY")
 
+email_password = os.getenv("EMAIL_PASSWORD")
+
 #Lädt die Debug-Einstellung aus der settings.json Datei
 debug_mode = json.loads(open("configs/settings.json").read())["server"]["debug"]
 
@@ -42,6 +44,8 @@ def isKey_loaded():
         print("WARNUNG: Der MONGO_URI konnte nicht geladen werden!")
     elif not weather_api_key:
         print("WARNUNG: Der WEATHER_API_KEY konnte nicht geladen werden!")
+    elif not email_password:
+        print("WARNUNG: Das EMAIL_PASSWORD konnte nicht geladen werden!")
     else:
         print("Alle kritischen Umgebungsschlüssel wurden erfolgreich geladen.")
 

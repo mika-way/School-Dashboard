@@ -1,6 +1,7 @@
 #Import Flask
 from flask import render_template
 from flask_login import current_user
+from flask_mail import Message
 from . import dashboard_blueprint
 
 #Erstellt die Verbindung zur HTML Datei her
