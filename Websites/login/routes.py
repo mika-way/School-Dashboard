@@ -43,6 +43,10 @@ def index():
         
         students_password = db.get_students_password(form.email.data)
 
+        if find_student["verification"]["is_verify"] == False:
+            flash('Dein Konto ist noch nicht verifiziert. Bitte überprüfe deine E-Mails.', 'warning')
+            return redirect(url_for('codeconfirm.index'))
+
         # Überprüft das Passwort
         if find_student and bcrypt.check_password_hash(students_password, form.password.data):
 
