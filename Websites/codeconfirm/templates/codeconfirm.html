@@ -34,18 +34,26 @@
     <!-- ~~~ -->
   </head>
   <body class="bg-dark text-white">
-    <!-- Header -->
-    <div class="flex-container bg-tertiary shadow-lg p-5">
-      <h1>Verifizierung</h1>
-      <!-- ~~~ -->
+    
+    <div class="registration-card shadow-xl">
+     <h1>Verifizierung</h1>
 
-      <!-- Formuar -->
-      <form method="POST" action="">
-        <div>{{ form.hidden_tag() }}</div>
-        <div>{{ form.code( type="text" ) }}</div>
-        <div>{{ form.submit() }}</div>
-      </form>
-      <a href="{{ url_for('dashboard.index') }}">Schul-Dashboard</a>
+    <form method="POST" action="" class="form-grid">
+      {{ form.hidden_tag() }}
+      
+      <div class="form-group full-width">
+        {{ form.code( type="text", placeholder="Verifizierungscode", class="input-field verification-code-input" ) }}
+      </div>
+      
+      <div class="form-group full-width submit-group">
+        {{ form.submit(class="submit-button") }}
+      </div>
+      
+    </form>
+      
+    <div class="link-group full-width">
+        <a href="{{ url_for('dashboard.index') }}" class="secondary-link">Zum Schul-Dashboard</a>
+    </div>
     </div>
     <!-- ~~~ -->
 

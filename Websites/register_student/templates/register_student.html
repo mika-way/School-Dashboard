@@ -22,41 +22,44 @@
     />
     <title>Registrieren - Schüler</title>
     </head>
-  <body class="bg-dark text-white">
+<body class="bg-dark text-white">
     
-    <div class="flex-container bg-tertiary shadow-lg p-5">
+    <div class="registration-card shadow-xl">
      <h1>Registrieren - Schüler</h1>
 
-    <form method="POST" action="">
+    <form method="POST" action="" class="form-grid">
       {{ form.hidden_tag() }}
-      <div>
-        {{ form.selectfield() }}
+      <div class="form-group full-width">
+        {{ form.selectfield(class="input-field select-field") }}
       </div>
-      <div>
-        {{ form.username( type="text" ) }}
+      <div class="form-group">
+        {{ form.username( type="text", placeholder="Benutzername", class="input-field" ) }}
       </div>
-      <div>
-        {{ form.email( type="email" ) }}
+      <div class="form-group">
+        {{ form.email( type="email", placeholder="E-Mail-Adresse", class="input-field" ) }}
       </div>
-      <div>
-        {{ form.first_name( type="text" ) }}
+      <div class="form-group">
+        {{ form.first_name( type="text", placeholder="Vorname (Optional)", class="input-field" ) }}
       </div>
-      <div>
-        {{ form.last_name( type="text" ) }}
+      <div class="form-group">
+        {{ form.last_name( type="text", placeholder="Nachname (Optional)", class="input-field" ) }}
       </div>
-      <div>
-        {{ form.password( type="password" ) }}
+      <div class="form-group">
+        {{ form.password( type="password", placeholder="Passwort", class="input-field" ) }}
       </div>
-      <div>
-        {{ form.confirm_password( type="password" ) }}
+      <div class="form-group">
+        {{ form.confirm_password( type="password", placeholder="Passwort bestätigen", class="input-field" ) }}
       </div>
-      <div>
-        {{ form.submit() }}
+      <div class="form-group full-width submit-group">
+        {{ form.submit(class="submit-button") }}
       </div>
       </form>
-      <a href="{{ url_for('dashboard.index') }}">Schul-Dashboard</a>
-      <a href="{{ url_for('login.index') }}">Hast du schon ein Account?</a>
+      <div class="link-group full-width">
+        <a href="{{ url_for('dashboard.index') }}" class="secondary-link">Schul-Dashboard</a>
+        <a href="{{ url_for('login.index') }}" class="primary-link">Hast du schon einen Account?</a>
     </div>
+    </div>
+
     <script src="{{ url_for('register_student.static', filename='script.js') }}"></script>
 
     <script src="{{ url_for('static', filename='js/preloader.js') }}"></script>

@@ -14,6 +14,10 @@ def index(user_id):
     if current_user.is_authenticated:
         username = current_user.username
         
+        #Stellt sicher, dass der Benutzer nur auf sein eigenes Profil zugreifen kann
+        if current_user.id != user_id:
+            return redirect(url_for('profile.index', user_id=current_user.id))
+        
         user = db.find_student_by_uuid(user_id)
         
         #Wenn der Benutzer nicht gefunden wird, leite zurück zum Dashboard
