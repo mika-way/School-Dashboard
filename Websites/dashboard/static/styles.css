@@ -157,7 +157,7 @@ body {
     height: 88vh;  /* 100vh minus 2x 20px Margin */
 }
 
-#div1 {
+#MiniNav {
 	grid-area: 4 / 1 / 10 / 2;
     overflow: hidden;
 }
@@ -188,23 +188,24 @@ body {
     overflow: hidden;
 }
 
-#cssportal-grid > div:not(#div1) {
+#cssportal-grid > div,
+#MiniNav { 
     border-radius: 12px;
     background: #343a40;
-    
     border: 1px solid rgba(127, 0, 255, 0.4);
     box-shadow: 
         0 2px 4px rgba(0, 0, 0, 0.4),
         0 8px 16px rgba(0, 0, 0, 0.6); 
     
-    display: flex;
+    display: flex; 
     align-items: center;
     justify-content: center;
 
     transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
 }
 
-#cssportal-grid > div:not(#div1):hover {
+#cssportal-grid > div:hover,
+#MiniNav:hover {
     
     box-shadow: 
         0 4px 8px rgba(0, 0, 0, 0.5), 
@@ -234,57 +235,44 @@ body {
     margin-top: 10px;
 }
 
-#MiniNav-bar
 
-{
+#MiniNav-bar{
+    box-shadow: none !important;
+    scale: 2 !important;
+    width: 50vw !important;
+    background-color: #343a40 !important;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
-#Dropdown 
-{
-    position: absolute;
-    top: 720px;
-
+#Dropdown {
+    position: absolute; 
+    bottom: 0;
+    left: 0;  
+    width: 100%;  
+    padding: 15px; 
+    
+    
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    
+    transform: none !important;
 }
 
-#Home:hover
-{
+#offcanvasbutton:hover,
+#Home-icon:hover,
+#Stundenplan-icon:hover,
+#Einstellungen-icon:hover,
+#Gast-icon:hover,
+#Home:hover,
+#Stundenplan:hover,
+#Einstellungen:hover,
+#Gast:hover {
     background-color: #7d838a;
     border-radius: 10px;
     
 }
 
-#Stundenplan:hover
-{
-    background-color: #7d838a;
-    border-radius: 10px;
-    
-}
-
-#Einstellungen:hover
-{
-    background-color: #7d838a;
-    border-radius: 10px;
-    
-}
-
-#Gast:hover
-{
-    background-color: #7d838a;
-    border-radius: 10px;
-    
-}
-
-#Einstellungen:hover
-{
-    background-color: #7d838a;
-    border-radius: 10px;
-    
-}
-
-#offcanvasbutton:hover
-{
-    background-color: #7d838a;
-    border-radius: 10px;
-    
+#Home-icon, #Stundenplan-icon, #Einstellungen-icon, #Gast-icon, #offcanvasbutton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
