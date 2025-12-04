@@ -153,8 +153,8 @@ body {
 	grid-template-columns: repeat(10, 1fr);
     gap: 20px;
     margin: 20px;
-    width: calc(100% - 40px);  /* 100% minus 2x 20px Margin */
-    height: 88vh;  /* 100vh minus 2x 20px Margin */
+    width: calc(100% - 40px);
+    height: calc(90vh - 40px);
 }
 
 #MiniNav {
@@ -223,20 +223,19 @@ body {
 /*DIV Container Inhalte*/
 
 #time-date {
-    font-size: 1.7rem;
+    font-size: 1.6vw;
     text-align: center;
 }
 
 #wetter_h2 {
-    font-size: 4.7rem;
+    font-size: 4.6vw;
     text-align: center;
 }
-#description_w, #wetter_temp {
-    font-size: 1.4rem;
+#description_w, #temp, #humidity, #city {
+    font-size: 1.3vw;
     text-align: center;
     margin-top: 10px;
 }
-
 
 #MiniNav-bar{
     box-shadow: none !important;
@@ -277,4 +276,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#offcanvasExample {
+    border-right: 2px solid rgba(127, 0, 255, 0.4);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.4),
+        0 8px 16px rgba(0, 0, 0, 0.6);
+
+    animation: pulsieren 2s infinite alternate; 
 }
