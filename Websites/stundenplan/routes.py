@@ -1,6 +1,6 @@
 #Import Flask
 from flask import render_template, redirect, url_for
-from . import profile_blueprint
+from . import stundenplan_blueprint
 from flask_login import current_user
 
 from data.database import DatabaseStudent
@@ -8,7 +8,7 @@ from data.database import DatabaseStudent
 db = DatabaseStudent("student")
 
 #Erstellt die Verbindung zur HTML Datei her
-@profile_blueprint.route('/<user_id>')
+@stundenplan_blueprint.route('/<user_id>')
 def index(user_id):
     #Überprüft, ob der Benutzer angemeldet ist
     if current_user.is_authenticated:
@@ -16,7 +16,7 @@ def index(user_id):
         
         #Stellt sicher, dass der Benutzer nur auf sein eigenes Profil zugreifen kann
         if current_user.id != user_id:
-            return redirect(url_for('profile.index', user_id=current_user.id))
+            return redirect(url_for('stundenplan.index', user_id=current_user.id))
         
         user = db.find_student_by_uuid(user_id)
         
@@ -27,5 +27,5 @@ def index(user_id):
     else:
         return redirect(url_for('login.index'))
         
-    return render_template('profil.html',
-                           username=username,)
+    return render_template('stundenplan.html',
+                           username=username)

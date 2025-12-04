@@ -1,24 +1,25 @@
-<!DOCTYPE html>
 <html lang="de" data-bs-theme="dark">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-  <link rel="stylesheet" href="{{ url_for('dashboard.static', filename='styles.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('dashboard.static', filename='handy.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/preloader.css') }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap Import -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- ~~~ -->
 
-  {% if username != None %}
-  <title>Schul-Dashbaord - {{ username }}</title>
-  {% else %}
-  <title>Schul-Dashbaord</title>
-  {% endif %}
+    <!-- CSS Lokal -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('stundenplan.static', filename='styles.css') }}"
+    />
+    <!-- ~~~ -->
+
+    <title>Stundenplan - {{ username }}</title>
+
 </head>
-
-<body>
-  <div id="underlay_popup"></div>
+<body class="bg-dark text-white">
+<div id="underlay_popup"></div>
   <div id="abmelde_popup">
     <p id="abmelde-p-popup">
       Möchten sie sich <span class="neon-akzent">wirklich</span> Abmelden?
@@ -76,11 +77,7 @@
     </div>
   </nav>
 
-
-  <!--Div Containers-->
-
-  <div id="cssportal-grid">
-    <nav id="MiniNav">
+  <nav class="position-fixed translate-middle-y" id="MiniNav">
       <ul class="nav flex-column justify-content-center rounded" id="MiniNav-bar">
 
         <li class="nav-item" id="Home-icon">
@@ -135,29 +132,8 @@
       </ul>
     </nav>
 
-    <div id="div2">Akutelles Fach inkl. Aufgaben und Lehrer</div>
-    <div id="div3">Hausufgaben/Proben/Ex's/ sonstige Termine</div>
-    <div id="div4">Zitat des Tages/Nachrichten/Witze</div>
-
-    <div id="div5">
-      <div id="time-date"> {{ time }} <br> {{ date }}</div>
-    </div>
-
-    <div id="div6">
-      <h2 id="wetter_h2">Wetter</h2>
-      <img src="https://openweathermap.org/img/wn/{{ icon }}@2x.png" alt="Icon: {{ weather_description }}"
-        title="Aktuell: {{ weather_description }}">
-
-      <p id="description_w"> {{ weather_description }} </p>
-      <p id="temp"> Temperatur: {{ temp }}°C Gefühlt: {{ feels_like }}°C </p>
-      <p id="humidity"> Luftfeuchtigkeit: {{ humidity }}% </p>
-      <p id="city"> Stadt: {{ city }} </p>
-    </div>
-
-    <div id="div7">Stundenplan / Tag</div>
-  </div>
-
-  <div class="offcanvas offcanvas-start text-bg-dark rounded" tabindex="-1" id="offcanvasExample"
+<!--Offcanvas-->
+<div class="offcanvas offcanvas-start text-bg-dark rounded" tabindex="-1" id="offcanvasExample"
     aria-labelledby="offcanvasExampleLabel" style="width: 300px;">
 
     <div class="offcanvas-header">
@@ -234,11 +210,10 @@
     </div>
   </div>
 
-  <script src="{{ url_for('dashboard.static', filename='funktionen.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-  <script src="{{ url_for('static', filename='js/preloader.js') }}"></script>
-</body>
+    <!-- Javascript einbinden -->
 
+    <script src="{{ url_for('stundenplan.static', filename='script.js') }}"></script>
+
+    <!-- ~~~ -->
+</body>
 </html>

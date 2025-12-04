@@ -20,6 +20,7 @@ from Websites.register_student import register_student_blueprint
 from Websites.login import login_blueprint
 from Websites.profile import profile_blueprint
 from Websites.codeconfirm import codeconfirm_blueprint
+from Websites.stundenplan import stundenplan_blueprint
 
 #import der Konfigurationsvariablen
 from configs.config import isConfig_loaded, secret_key, debug_mode, email_password
@@ -80,6 +81,8 @@ def create_app(debug = debug_mode):
     app.register_blueprint(login_blueprint, url_prefix="/login")
     app.register_blueprint(profile_blueprint, url_prefix="/profile")
     app.register_blueprint(codeconfirm_blueprint, url_prefix="/codeconfirm")
+    app.register_blueprint(stundenplan_blueprint, url_prefix="/stundenplan")
+    
 
     #Wenn keine Website gefunden wurde, ruft der Server diese Website auf.
     @app.errorhandler(404)
